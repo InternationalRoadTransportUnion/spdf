@@ -1,0 +1,12 @@
+require:
+    - play
+    - com.lowagie -> itext 2.1.7
+    - org.xhtmlrenderer -> flying-saucer-pdf 9.0.1
+
+repositories:
+    - repo:
+        type: iBiblio
+        root: "http://apps.charybdis.iruworld.org/swf/artifactory/repo/"
+        contains:
+          - com.lowagie -> *
+          - org.xhtmlrenderer -> *
