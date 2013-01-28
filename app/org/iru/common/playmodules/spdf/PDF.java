@@ -27,22 +27,24 @@ import play.vfs.VirtualFile;
 
 import com.lowagie.text.pdf.BaseFont;
 
+/**
+ * Simpler version of the play PDF module.
+ * 
+ * Heavilly inspired by both the play 1.x pdf module and the 2.x module.
+ */
 public class PDF {
 
 	public static class Options {
-		public String filename = null;
+		public String	filename	= null;
 	}
-
 
 	public static void toStream(String string, OutputStream os) {
 		try {
 			Reader reader = new StringReader(string);
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.getFontResolver().addFontDirectory(
-					Play.applicationPath.getPath() + "/conf/fonts",
-					BaseFont.EMBEDDED);
-			PlayUserAgent myUserAgent = new PlayUserAgent(
-					renderer.getOutputDevice());
+			        Play.applicationPath.getPath() + "/conf/fonts", BaseFont.EMBEDDED);
+			PlayUserAgent myUserAgent = new PlayUserAgent(renderer.getOutputDevice());
 			myUserAgent.setSharedContext(renderer.getSharedContext());
 			renderer.getSharedContext().setUserAgentCallback(myUserAgent);
 			Document document = XMLResource.load(reader).getDocument();
@@ -55,15 +57,14 @@ public class PDF {
 		}
 	}
 
-	static String resolveTemplateName(String templateName, Request request,
-			String format) {
+	static String resolveTemplateName(String templateName, Request request, String format) {
 		if (templateName.startsWith("@")) {
 			templateName = templateName.substring(1);
 			if (!templateName.contains(".")) {
 				templateName = request.controller + "." + templateName;
 			}
 			templateName = templateName.replace(".", "/") + "."
-					+ (format == null ? "html" : format + ".html");
+			        + (format == null ? "html" : format + ".html");
 		}
 		Boolean templateExists = false;
 		for (VirtualFile vf : Play.templatesPath) {
@@ -78,30 +79,19 @@ public class PDF {
 		}
 		if (!templateExists) {
 			if (templateName.lastIndexOf("." + format) != -1) {
-				templateName = templateName.substring(0,
-						templateName.lastIndexOf("." + format))
-						+ ".html";
+				templateName = templateName.substring(0, templateName.lastIndexOf("." + format))
+				        + ".html";
 			}
 		}
 		return templateName;
 	}
 
-	/**
-	 * Render a specific template
-	 * 
-	 * @param templateName
-	 *            The template name
-	 * @param args
-	 *            The template data
-	 */
-	public static void renderTemplateAsPDF(OutputStream out,
-			MultiPDFDocuments docs, Object... args) {
+	public static void renderTemplateAsPDF(OutputStream out, MultiPDFDocuments docs, Object... args) {
 		Scope.RenderArgs templateBinding = Scope.RenderArgs.current();
 
 		try {
 			for (Object o : args) {
-				List<String> names = LocalVariablesNamesTracer
-						.getAllLocalVariableNames(o);
+				List<String> names = LocalVariablesNamesTracer.getAllLocalVariableNames(o);
 				for (String name : names) {
 					templateBinding.put(name, o);
 				}
@@ -124,22 +114,18 @@ public class PDF {
 				// we're rendering to the current Response object
 				throw new RenderPDFTemplate(docs, templateBinding.data);
 			} else {
-				RenderPDFTemplate renderer = new RenderPDFTemplate(docs,
-						templateBinding.data);
-				renderer.writePDF(out, Http.Request.current(),
-						Http.Response.current());
+				RenderPDFTemplate renderer = new RenderPDFTemplate(docs, templateBinding.data);
+				renderer.writePDF(out, Http.Request.current(), Http.Response.current());
 			}
 		} catch (TemplateNotFoundException ex) {
 			if (ex.isSourceAvailable()) {
 				throw ex;
 			}
-			StackTraceElement element = PlayException
-					.getInterestingStrackTraceElement(ex);
+			StackTraceElement element = PlayException.getInterestingStrackTraceElement(ex);
 			if (element != null) {
-				throw new TemplateNotFoundException(
-						ex.getPath(),
-						Play.classes.getApplicationClass(element.getClassName()),
-						element.getLineNumber());
+				throw new TemplateNotFoundException(ex.getPath(),
+				        Play.classes.getApplicationClass(element.getClassName()),
+				        element.getLineNumber());
 			} else {
 				throw ex;
 			}
@@ -147,25 +133,17 @@ public class PDF {
 	}
 
 	/**
-	 * Render the corresponding template
+	 * Render the corresponding template.
 	 * 
 	 * @param args
-	 *            The template data
+	 *            The template data. If am {@link Options} objects is present it
+	 *            is used.
 	 */
 	public static void renderPDF(Object... args) {
 		OutputStream os = null;
 		writePDF(os, args);
 	}
 
-	/**
-	 * Render the corresponding template into a file
-	 * 
-	 * @param file
-	 *            the file to render to, or null to render to the current
-	 *            Response object
-	 * @param args
-	 *            the template data
-	 */
 	public static void writePDF(File file, Object... args) {
 		try {
 			OutputStream os = new FileOutputStream(file);
@@ -177,15 +155,6 @@ public class PDF {
 		}
 	}
 
-	/**
-	 * Render the corresponding template into a file
-	 * 
-	 * @param out
-	 *            the stream to render to, or null to render to the current
-	 *            Response object
-	 * @param args
-	 *            the template data
-	 */
 	public static void writePDF(OutputStream out, Object... args) {
 		final Http.Request request = Http.Request.current();
 		final String format = request.format;
@@ -197,7 +166,7 @@ public class PDF {
 			boolean firstEmpty = false;
 			try {
 				firstEmpty = ((List<String>) LocalVariablesNamesTracer
-						.getAllLocalVariableNames(args[0])).isEmpty();
+				        .getAllLocalVariableNames(args[0])).isEmpty();
 			} catch (Exception e) {
 				throw new UnexpectedException(e);
 			}
@@ -220,13 +189,12 @@ public class PDF {
 			docs.add(singleDoc);
 			if (singleDoc.template == null) {
 				singleDoc.template = request.action.replace(".", "/") + "."
-						+ (format == null ? "html" : format + ".html");
+				        + (format == null ? "html" : format + ".html");
 			}
 			if (singleDoc.options != null && singleDoc.options.filename != null)
 				docs.filename = singleDoc.options.filename;
 			else
-				docs.filename = FilenameUtils.getBaseName(singleDoc.template)
-						+ ".pdf";
+				docs.filename = FilenameUtils.getBaseName(singleDoc.template) + ".pdf";
 			System.err.format("COUCOU %s", singleDoc.template);
 		}
 
