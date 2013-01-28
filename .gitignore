@@ -3,3 +3,5 @@
 tmp
 .settings
 lib/*.jar
+bin
+eclipse
