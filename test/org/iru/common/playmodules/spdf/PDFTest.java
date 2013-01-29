@@ -21,7 +21,6 @@ public class PDFTest {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     
     Play.applicationPath = File.createTempFile("/tmp", "test");
-    // <link href='/public/stylesheets/pdf.css' media='print' rel='stylesheet' type='text/css'/>
     PDF.toStream("<html><head></head><body>test</body></html>", baos);
     
     assertTrue(baos.size() > 0);

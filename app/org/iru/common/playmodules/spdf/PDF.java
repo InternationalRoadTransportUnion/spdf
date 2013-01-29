@@ -48,7 +48,10 @@ public class PDF {
 			myUserAgent.setSharedContext(renderer.getSharedContext());
 			renderer.getSharedContext().setUserAgentCallback(myUserAgent);
 			Document document = XMLResource.load(reader).getDocument();
+			
+			// convention with PlayUserAgent (never resolved)
 			renderer.setDocument(document, "http://localhost:9000");
+			
 			renderer.layout();
 			renderer.createPDF(os);
 		} catch (Exception e) {
@@ -195,7 +198,6 @@ public class PDF {
 				docs.filename = singleDoc.options.filename;
 			else
 				docs.filename = FilenameUtils.getBaseName(singleDoc.template) + ".pdf";
-			System.err.format("COUCOU %s", singleDoc.template);
 		}
 
 		renderTemplateAsPDF(out, docs, args);

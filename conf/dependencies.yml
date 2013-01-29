@@ -1,5 +1,7 @@
+
 require:
     - play
+#     commons-io is provided by play
     - com.lowagie -> itext 2.1.7
     - org.xhtmlrenderer -> flying-saucer-pdf 9.0.1
 

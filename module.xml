@@ -11,10 +11,9 @@
   <dependencySets>
     <dependencySet>
       <outputDirectory>lib</outputDirectory>
-      <includes>
-        <include>com.lowagie:itext</include>
-        <include>org.xhtmlrenderer:flying-saucer-pdf</include>
-      </includes>
+      <excludes>
+        <exclude>*:spdf:*</exclude>
+      </excludes>
     </dependencySet>
   </dependencySets>
 
