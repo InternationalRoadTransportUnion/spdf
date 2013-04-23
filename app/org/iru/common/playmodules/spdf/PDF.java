@@ -42,8 +42,6 @@ public class PDF {
 		try {
 			Reader reader = new StringReader(string);
 			ITextRenderer renderer = new ITextRenderer();
-			renderer.getFontResolver().addFontDirectory(
-			        Play.applicationPath.getPath() + "/conf/fonts", BaseFont.EMBEDDED);
 			PlayUserAgent myUserAgent = new PlayUserAgent(renderer.getOutputDevice());
 			myUserAgent.setSharedContext(renderer.getSharedContext());
 			renderer.getSharedContext().setUserAgentCallback(myUserAgent);
