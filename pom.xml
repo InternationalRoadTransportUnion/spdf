@@ -10,7 +10,7 @@
 
 	<groupId>org.iru.common.playmodules</groupId>
 	<artifactId>spdf</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Simpler PDF plugin for Play!</name>
 	<description>
