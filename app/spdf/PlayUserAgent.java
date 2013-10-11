@@ -1,4 +1,4 @@
-package org.iru.common.playmodules.spdf;
+package spdf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

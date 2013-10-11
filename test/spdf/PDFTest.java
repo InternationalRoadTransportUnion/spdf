@@ -1,4 +1,4 @@
-package org.iru.common.playmodules.spdf;
+package spdf;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -8,11 +8,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import org.iru.common.playmodules.spdf.PDF;
 import org.junit.Test;
 
 import play.Play;
 import play.libs.IO;
+import spdf.PDF;
 
 public class PDFTest {
 

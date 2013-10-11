@@ -1,13 +1,12 @@
-package org.iru.common.playmodules.spdf;
+package spdf;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.iru.common.playmodules.spdf.PDF.Options;
-
 import play.classloading.enhancers.LocalvariablesNamesEnhancer.LocalVariablesNamesTracer;
 import play.exceptions.UnexpectedException;
+import spdf.PDF.Options;
 
 public class PDFDocument {
 	public String template;

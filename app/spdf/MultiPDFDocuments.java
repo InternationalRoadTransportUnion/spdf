@@ -1,10 +1,10 @@
-package org.iru.common.playmodules.spdf;
+package spdf;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.iru.common.playmodules.spdf.PDF.Options;
+import spdf.PDF.Options;
 
 public class MultiPDFDocuments {
 	public List<PDFDocument> documents = new LinkedList<PDFDocument>();
