@@ -25,8 +25,6 @@ import play.mvc.Http.Request;
 import play.mvc.Scope;
 import play.vfs.VirtualFile;
 
-import com.lowagie.text.pdf.BaseFont;
-
 /**
  * Simpler version of the play PDF module.
  * 
@@ -43,7 +41,6 @@ public class PDF {
 			Reader reader = new StringReader(string);
 			ITextRenderer renderer = new ITextRenderer();
 			PlayUserAgent myUserAgent = new PlayUserAgent(renderer.getOutputDevice());
-			myUserAgent.setSharedContext(renderer.getSharedContext());
 			renderer.getSharedContext().setUserAgentCallback(myUserAgent);
 			Document document = XMLResource.load(reader).getDocument();
 			

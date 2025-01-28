@@ -9,6 +9,7 @@ import java.net.URL;
 
 import org.xhtmlrenderer.pdf.ITextFSImage;
 import org.xhtmlrenderer.pdf.ITextOutputDevice;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.pdf.ITextUserAgent;
 import org.xhtmlrenderer.resource.CSSResource;
 import org.xhtmlrenderer.resource.ImageResource;
@@ -22,8 +23,11 @@ import com.lowagie.text.Image;
 
 public class PlayUserAgent extends ITextUserAgent {
 
+	private final ITextOutputDevice _outputDevice;
+	
 	public PlayUserAgent(ITextOutputDevice outputDevice) {
-		super(outputDevice);
+		super(outputDevice, ITextRenderer.DEFAULT_DOTS_PER_PIXEL);
+		this._outputDevice = outputDevice;
 	}
 
 	@Override
@@ -103,7 +107,7 @@ public class PlayUserAgent extends ITextUserAgent {
 	}
 
 	private void scaleToOutputResolution(Image image) {
-		float factor = getSharedContext().getDotsPerPixel();
+		float factor = _outputDevice.getSharedContext().getDotsPerPixel();
 		image.scaleAbsolute(image.getPlainWidth() * factor, image.getPlainHeight() * factor);
 	}
 

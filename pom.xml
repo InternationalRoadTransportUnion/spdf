@@ -37,25 +37,11 @@
 			<artifactId>play</artifactId>
     </dependency>
 
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-      <version>2.1.7</version>
-      <exclusions>
-        <exclusion>
-          <groupId>bouncycastle</groupId>
-          <artifactId>bcmail-jdk14</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>bouncycastle</groupId>
-          <artifactId>bcprov-jdk14</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.bouncycastle</groupId>
-          <artifactId>bctsp-jdk14</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+	<dependency>
+	    <groupId>com.github.librepdf</groupId>
+	    <artifactId>openpdf</artifactId>
+	    <version>2.0.3</version>
+	</dependency>
 
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -65,7 +51,7 @@
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
 			<artifactId>flying-saucer-pdf</artifactId>
-			<version>9.0.1</version>
+			<version>9.11.2</version>
 		</dependency>
 
 		<dependency>
@@ -100,8 +86,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.1</version>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
